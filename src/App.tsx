@@ -158,6 +158,55 @@ const devopsItems = [
   }
 ];
 
+const researchModel = [
+  {
+    title: 'Input Layer',
+    body: 'Accept .java files for fast class-level review. Future upgrade: zipped Java project upload.',
+    icon: Upload
+  },
+  {
+    title: 'Metric Extraction',
+    body: 'Compute WMC, RFC, CBO, LCOM, and DIT using static code parsing heuristics.',
+    icon: Code2
+  },
+  {
+    title: 'Quality Scoring',
+    body: 'Convert metric evidence into a 0–100 score and A–D grade using weighted rules.',
+    icon: BarChart3
+  },
+  {
+    title: 'Refactor Guidance',
+    body: 'Turn weak design signals into practical Extract Method, Extract Class, and decoupling actions.',
+    icon: Lightbulb
+  }
+];
+
+const metricCards = [
+  ['WMC', 'Class complexity', 'High WMC means many methods or decision branches. Show it as the main complexity risk.'],
+  ['RFC', 'Response size', 'High RFC increases testing effort because the class can trigger many method responses.'],
+  ['CBO', 'Coupling', 'High CBO means the class depends on many external classes and becomes harder to change.'],
+  ['LCOM', 'Cohesion', 'High LCOM means methods are not strongly related and the class may be doing multiple jobs.'],
+  ['DIT', 'Inheritance depth', 'High DIT can make behavior harder to understand and debug.']
+];
+
+const deploymentChoices = [
+  {
+    title: 'Best now: Vercel',
+    body: 'Fastest for this Vite React project. Import GitHub, keep build command npm run build and output directory dist.',
+    icon: Rocket
+  },
+  {
+    title: 'Good alternative: Netlify',
+    body: 'Also perfect for static React. Use it if you want simple deploy previews and form/static hosting features.',
+    icon: Network
+  },
+  {
+    title: 'Backend later: Railway or Render',
+    body: 'Use only when you add Spring Boot or Node API for full project upload, metric history, and database storage.',
+    icon: ServerCog
+  }
+];
+
 
 const buildAnalysisResult = (metrics: ClassMetrics[]): AnalysisResult => {
   const averageDesignScore = Math.round(metrics.reduce((sum, metric) => sum + metric.designScore, 0) / metrics.length);
@@ -282,10 +331,11 @@ function App() {
             </div>
           </a>
 
-          <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+          <nav className="hidden items-center gap-5 text-sm text-slate-300 md:flex">
+            <a href="#research" className="transition hover:text-cyan-200">Research</a>
             <a href="#dashboard" className="transition hover:text-cyan-200">Dashboard</a>
-            <a href="#assets" className="transition hover:text-cyan-200">PPT & Certificate</a>
-            <a href="#devops" className="transition hover:text-cyan-200">DevOps</a>
+            <a href="#assets" className="transition hover:text-cyan-200">Assets</a>
+            <a href="#deploy" className="transition hover:text-cyan-200">Deploy</a>
             <a href="#profiles" className="transition hover:text-cyan-200">Profiles</a>
           </nav>
 
@@ -423,6 +473,71 @@ function App() {
           </div>
         </section>
 
+        <section id="research" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mb-8 max-w-4xl">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Research-backed UX</p>
+            <h2 className="text-3xl font-black text-white sm:text-4xl">Turn the paper into a clear product story</h2>
+            <p className="mt-3 text-slate-400">
+              The UI should not only look attractive. It should prove the research idea: upload code, extract OO metrics, grade design quality, explain the risk, and give practical refactoring steps.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {researchModel.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.06 }}
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-slate-900/60 p-6"
+              >
+                <div className="absolute right-4 top-4 text-5xl font-black text-white/[0.03]">0{index + 1}</div>
+                <item.icon className="mb-5 h-8 w-8 text-cyan-300" />
+                <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_0.85fr]">
+            <div className="rounded-3xl border border-white/10 bg-white/[0.05] p-6">
+              <div className="mb-5 flex items-center gap-3">
+                <BookOpen className="h-7 w-7 text-cyan-300" />
+                <div>
+                  <h3 className="text-xl font-bold text-white">Metric explanation cards</h3>
+                  <p className="text-sm text-slate-500">Add this section so evaluators understand why each metric matters.</p>
+                </div>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {metricCards.map(([metric, label, body]) => (
+                  <div key={metric} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+                    <div className="mb-2 flex items-center justify-between">
+                      <span className="rounded-full bg-cyan-300/10 px-3 py-1 text-xs font-bold text-cyan-200 ring-1 ring-cyan-300/20">{metric}</span>
+                      <span className="text-xs text-slate-500">{label}</span>
+                    </div>
+                    <p className="text-sm leading-6 text-slate-400">{body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-orange-300/20 bg-orange-300/10 p-6">
+              <ShieldCheck className="mb-5 h-8 w-8 text-orange-200" />
+              <h3 className="text-xl font-bold text-white">Strong project improvement</h3>
+              <p className="mt-3 text-sm leading-6 text-orange-50/80">
+                Add a visible "Research Evidence" area, a "Before vs After Refactor" demo, and a "Quality Gate" roadmap. This makes the project look like a real engineering tool instead of only a chart dashboard.
+              </p>
+              <div className="mt-5 space-y-3 text-sm text-orange-50/80">
+                <p>• Show grade A–D with reason, not only color.</p>
+                <p>• Show exact metric that caused the low score.</p>
+                <p>• Convert suggestions into backlog tasks.</p>
+                <p>• Keep the UI deployable without paid APIs.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="dashboard" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
           <div className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
             <div>
@@ -535,7 +650,7 @@ function App() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Research assets</p>
             <h2 className="text-3xl font-black text-white sm:text-4xl">PPT and certificate added inside the project</h2>
             <p className="mt-3 max-w-3xl text-slate-400">
-              The uploaded presentation and certificate are now stored in <span className="font-mono text-cyan-200">public/research</span>, so they ship with the project.
+              The presentation, certificate, abstract, and final paper are stored in <span className="font-mono text-cyan-200">public/research</span>, so evaluators can verify the research source from the live website.
             </p>
           </div>
 
@@ -552,6 +667,7 @@ function App() {
                     <p><span className="text-slate-500">Conference:</span> International Conference on Cognitive Informatics Engineering and Technology 2026</p>
                     <p><span className="text-slate-500">Author:</span> S. Rahul Kumar, KLEF, Vaddeswaram, AP</p>
                     <p><span className="text-slate-500">Project use:</span> Problem statement, metrics, grading model, architecture, evaluation, future work.</p>
+                    <p><span className="text-slate-500">UI proof:</span> The website now links the paper, abstract, PPT, and certificate from one research asset area.</p>
                   </div>
                 </div>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -564,11 +680,20 @@ function App() {
                     Download PPT
                   </a>
                   <a
-                    href="/research/research1.pptx"
+                    href="/research/final-paper.docx"
+                    download
+                    className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/50"
+                  >
+                    <FileText className="h-4 w-4" />
+                    Final paper
+                  </a>
+                  <a
+                    href="/research/abstract.docx"
+                    download
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-300/50"
                   >
                     <ExternalLink className="h-4 w-4" />
-                    Open asset
+                    Abstract
                   </a>
                 </div>
               </div>
@@ -618,6 +743,49 @@ function App() {
                 <p className="mt-3 text-sm leading-6 text-slate-400">{body}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="deploy" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-cyan-300">Deployment choice</p>
+            <h2 className="text-3xl font-black text-white sm:text-4xl">Use Vercel now, Railway/Render only when backend is added</h2>
+            <p className="mt-3 max-w-3xl text-slate-400">
+              This current project is a static Vite React app, so Vercel or Netlify is enough. Do not pay for backend hosting until you add real server-side project analysis.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {deploymentChoices.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.07 }}
+                className="rounded-3xl border border-white/10 bg-white/[0.05] p-6"
+              >
+                <item.icon className="mb-5 h-8 w-8 text-cyan-300" />
+                <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-slate-400">{item.body}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-3xl border border-white/10 bg-slate-900/70 p-6">
+            <h3 className="text-xl font-bold text-white">Recommended deploy settings</h3>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {[
+                ['Framework', 'Vite'],
+                ['Build command', 'npm run build'],
+                ['Output directory', 'dist']
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-slate-500">{label}</p>
+                  <p className="mt-2 font-mono text-cyan-200">{value}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
